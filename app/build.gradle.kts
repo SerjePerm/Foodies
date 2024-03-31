@@ -1,6 +1,11 @@
 plugins {
+    //Standard alias
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    //KSP
+    id("com.google.devtools.ksp")
+    //DI Hilt
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -50,7 +55,18 @@ android {
 }
 
 dependencies {
-
+    //DI Hilt
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    ksp(libs.hilt.compiler)
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    //GSON
+    implementation(libs.gson)
+    //Jetpack Compose navigation
+    implementation(libs.androidx.navigation.compose)
+    //Standard libs
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
