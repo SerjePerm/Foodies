@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Foodies</string>
+    <string name="loading_screen_text">Идёт загрузка,\nпожалуйста, подождите…</string>
+    <string name="error_screen_text">Произошла ошибка</string>
+    <!-- Catalog screen -->
+    <!-- Cart screen -->
+    <!-- Product screen -->
 </resources>

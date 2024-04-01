@@ -10,11 +10,12 @@ class RetrofitRequester : NetworkClient {
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        //.addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     private val foodiesApi = retrofit.create(FoodiesApiService::class.java)
-    override suspend fun getAllCategories(): String {
+
+    override suspend fun getAllCategories(): Response<List<Category>> {
         return foodiesApi.getCategories()
     }
 
