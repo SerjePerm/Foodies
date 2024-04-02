@@ -1,7 +1,7 @@
 package com.example.foodies.screens.catalog
 
 import com.example.foodies.data.models.Category
-import com.example.foodies.data.models.ProductDto
+import com.example.foodies.data.models.Product
 import com.example.foodies.data.models.Tag
 
 sealed class CatalogState {
@@ -10,6 +10,6 @@ sealed class CatalogState {
     data class Content(
         var categories: List<Category> = emptyList(),
         var tags: List<Tag> = emptyList(),
-        var products: List<ProductDto> = emptyList()
+        var products: List<Product> = emptyList()
     ) : CatalogState()
 }

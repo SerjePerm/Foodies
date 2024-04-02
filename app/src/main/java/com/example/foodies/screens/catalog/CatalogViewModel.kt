@@ -3,6 +3,7 @@ package com.example.foodies.screens.catalog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.foodies.data.cart.Cart
+import com.example.foodies.data.models.mapProductDtoToProduct
 import com.example.foodies.data.network.NetworkClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -23,10 +24,13 @@ class CatalogViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            //load data from server
             val categories = networkClient.getCategories().body() ?: emptyList()
             val tags = networkClient.getTags().body() ?: emptyList()
-            val products = networkClient.getProducts().body() ?: emptyList()
+            val productsDto = networkClient.getProducts().body() ?: emptyList()
+            val products = productsDto.map { mapProductDtoToProduct(it) }
             delay(200L)
+            //set view state
             _state.value = CatalogState.Content(
                 categories = categories,
                 tags = tags,

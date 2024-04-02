@@ -1,8 +1,8 @@
 package com.example.foodies.screens.catalog
 
-import com.example.foodies.data.models.ProductDto
+import com.example.foodies.data.models.Product
 
 sealed class CatalogEvent {
-    data class AddToCart(val product: ProductDto) : CatalogEvent()
-    data class DelFromCart(val product: ProductDto) : CatalogEvent()
+    data class AddToCart(val product: Product) : CatalogEvent()
+    data class DelFromCart(val product: Product) : CatalogEvent()
 }

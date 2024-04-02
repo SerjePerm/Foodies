@@ -51,21 +51,7 @@ private fun ShowContent(
         }
         LazyColumn {
             items(state.products) { product ->
-                Card(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp, horizontal = 4.dp)
-                ) {
-                    Text(text = "id: ${product.id}")
-                    Text(text = "name: ${product.name}")
-                    Row {
-                        Button(onClick = { viewModel.onEvent(CatalogEvent.AddToCart(product)) }) {
-                            Text("+")
-                        }
-                        Button(onClick = { viewModel.onEvent(CatalogEvent.DelFromCart(product)) }) {
-                            Text("-")
-                        }
-                    }
-                }
+                UiShowProductCard(product = product, viewModel = viewModel)
             }
         }
     }
