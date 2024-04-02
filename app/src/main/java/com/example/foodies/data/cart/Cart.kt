@@ -1,11 +1,8 @@
 package com.example.foodies.data.cart
 
-class Cart : ProductRepository {
-    override fun add(temp: String) {
-        println("adding $temp")
-    }
+import com.example.foodies.data.models.ProductDto
 
-    override fun del(temp: String) {
-        println("deleting $temp")
-    }
+interface Cart {
+    fun add(product: ProductDto)
+    fun del(product: ProductDto)
 }

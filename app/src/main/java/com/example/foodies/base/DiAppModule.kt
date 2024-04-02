@@ -1,7 +1,9 @@
 package com.example.foodies.base
 
+import com.example.foodies.data.cart.CartImpl
+import com.example.foodies.data.cart.Cart
 import com.example.foodies.data.network.NetworkClient
-import com.example.foodies.data.network.RetrofitRequester
+import com.example.foodies.data.network.NetworkClientImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +17,13 @@ object DiAppModule {
     @Provides
     @Singleton
     fun provideRetrofit(): NetworkClient {
-        return RetrofitRequester()
+        return NetworkClientImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCart(): Cart {
+        return CartImpl()
     }
 
 }

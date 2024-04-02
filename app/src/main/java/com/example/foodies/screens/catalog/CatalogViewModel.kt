@@ -2,6 +2,7 @@ package com.example.foodies.screens.catalog
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.foodies.data.cart.Cart
 import com.example.foodies.data.network.NetworkClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -12,15 +13,32 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CatalogViewModel @Inject constructor(private val retrofit: NetworkClient) : ViewModel() {
-    private val _state  = MutableStateFlow(CatalogState.Loading as CatalogState)
+class CatalogViewModel @Inject constructor(
+    private val networkClient: NetworkClient,
+    private val cart: Cart
+) : ViewModel() {
+
+    private val _state = MutableStateFlow(CatalogState.Loading as CatalogState)
     val state: StateFlow<CatalogState> = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
-            val result = retrofit.getAllCategories().body() ?: emptyList()
-            delay(1000L)
-            _state.value = CatalogState.Content(categories = result)
+            val categories = networkClient.getCategories().body() ?: emptyList()
+            val tags = networkClient.getTags().body() ?: emptyList()
+            val products = networkClient.getProducts().body() ?: emptyList()
+            delay(200L)
+            _state.value = CatalogState.Content(
+                categories = categories,
+                tags = tags,
+                products = products
+            )
+        }
+    }
+
+    fun onEvent(event: CatalogEvent) {
+        when (event) {
+            is CatalogEvent.AddToCart -> cart.add(event.product)
+            is CatalogEvent.DelFromCart -> cart.del(event.product)
         }
     }
 
