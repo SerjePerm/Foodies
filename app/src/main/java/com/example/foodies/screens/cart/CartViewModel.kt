@@ -20,13 +20,21 @@ class CartViewModel @Inject constructor(private val cart: Cart) : ViewModel() {
     init {
         viewModelScope.launch {
             delay(200L)
-            _state.value = CartState.Content(cartList = cart.getAll())
+            _state.value = CartState.Content(cartList = emptyList())
             /*
             cart.get().collect{ cartList ->
                 _state.value = CartState.Content(cartList = cartList)
             }
              */
         }
+        viewModelScope.launch {
+            cart._orderFlow.collect{ list ->
+                list.forEach {
+                    println("flow: $it")
+                }
+            }
+        }
+
     }
 
     fun onEvent(event: CartEvent){

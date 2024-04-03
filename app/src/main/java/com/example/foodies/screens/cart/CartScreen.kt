@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import com.example.foodies.data.models.Product
 import com.example.foodies.utils.ErrorScreen
 import com.example.foodies.utils.LoadingScreen
 
@@ -40,6 +41,17 @@ private fun ShowContent(
             modifier = Modifier.clickable { onBackPressedDispatcher!!.onBackPressed() },
             text = "CartScreen (go back)"
         )
+        //
+        val tmp = Product(0, 0, "", "", "", 0, "", 0, "", 0.0, 0.0, 0.0, 0.0, listOf(""), 0)
+        Text(
+            modifier = Modifier.clickable { viewModel.onEvent(CartEvent.Increase(tmp)) },
+            text = "inc"
+        )
+        Text(
+            modifier = Modifier.clickable { viewModel.onEvent(CartEvent.Decrease(tmp)) },
+            text = "dec"
+        )
+        //
         LazyColumn {
             items(state.cartList) {product ->
                 UiShowCartCard(product = product, viewModel = viewModel)
