@@ -3,6 +3,7 @@ package com.example.foodies.screens.cart
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.foodies.data.cart.Cart
+import com.example.foodies.data.models.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,31 +17,19 @@ class CartViewModel @Inject constructor(private val cart: Cart) : ViewModel() {
 
     private val _state = MutableStateFlow(CartState.Loading as CartState)
     val state: StateFlow<CartState> = _state.asStateFlow()
+    val order: StateFlow<List<Product>> get() = cart.order
 
     init {
         viewModelScope.launch {
             delay(200L)
-            _state.value = CartState.Content(cartList = emptyList())
-            /*
-            cart.get().collect{ cartList ->
-                _state.value = CartState.Content(cartList = cartList)
-            }
-             */
+            _state.value = CartState.Content(data = "data")
         }
-        viewModelScope.launch {
-            cart._orderFlow.collect{ list ->
-                list.forEach {
-                    println("flow: $it")
-                }
-            }
-        }
-
     }
 
     fun onEvent(event: CartEvent){
         when(event) {
-            is CartEvent.Increase -> cart.add(event.product)
-            is CartEvent.Decrease -> cart.del(event.product)
+            is CartEvent.Increase -> cart.increase(event.product)
+            is CartEvent.Decrease -> cart.decrease(event.product)
         }
     }
 

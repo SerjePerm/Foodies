@@ -1,56 +1,45 @@
 package com.example.foodies.data.cart
 
 import com.example.foodies.data.models.Product
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.update
 
 class CartImpl : Cart {
 
-    private val _order: MutableList<String> = mutableListOf()
-    override val _orderFlow: MutableStateFlow<List<String>> =  MutableStateFlow(listOf())
+    private val _order: MutableStateFlow<List<Product>> = MutableStateFlow(emptyList())
+    override val order: StateFlow<List<Product>> get() = _order
 
-/*
-    private val _order: MutableStateFlow<MutableList<String>> = MutableStateFlow(mutableListOf("init list"))
-    override val order: StateFlow<List<String>> = _order
-
- */
-
-    override fun add(product: Product) {
-        _order.add("added string")
-        _orderFlow.update { _order }
-
+    override fun increase(product: Product) {
+        val count = getCount(product)
+        if (count==-1) addToOrder(product)
+        else updateCount(product.id, count+1)
     }
 
-    override fun del(product: Product) {
-        _order.add("minus string")
-        _orderFlow.update { _order }
+    override fun decrease(product: Product) {
+        val count = getCount(product)
+        if (count==1) deleteFromOrder(product.id)
+        else updateCount(product.id, count-1)
     }
 
-    /*
-    override fun getAll(): List<Product> {
-        return emptyList()
+    override fun getCount(product: Product): Int {
+        val found = _order.value.find { it.id == product.id }
+        return found?.count ?: -1
     }
 
-    override suspend fun get(): Flow<List<Product>> {
-        val result : Flow<List<Product>> = flow {
-            while (true) {
-                _cart.asFlow()
-            }
+    private fun addToOrder(product: Product) {
+        val newProduct = product.copy(count = 1)
+        _order.value += newProduct
+    }
+
+    private fun deleteFromOrder(id: Int) {
+        _order.value = _order.value.filter { it.id != id }
+    }
+
+    private fun updateCount(id: Int, newCount: Int) {
+        _order.value = _order.value.map {
+            if (it.id == id) { it.copy(count = newCount) }
+            else { it }
         }
-        return result
     }
-
-    override fun getCount(id: Int): Int {
-        val product = _cart.find { it.id == id }
-        return product?.count ?: 0
-    }
-
-     */
-
 
 }

@@ -40,15 +40,10 @@ private fun ShowContent(
     navHostController: NavHostController
 ) {
     Column {
-        Text("CatalogScreen")
-        Text("")
         Button(onClick = { navHostController.navigate(Routes.CART) }) {
             Text("Go to Cart")
         }
         Text("")
-        Button(onClick = { navHostController.navigate(Routes.PRODUCT) }) {
-            Text("Go to product info")
-        }
         LazyColumn {
             items(state.products) { product ->
                 UiShowProductCard(product = product, viewModel = viewModel)

@@ -9,10 +9,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.foodies.data.models.Product
+import com.example.foodies.utils.Routes
 
 @Composable
-fun UiShowCartCard(product: Product, viewModel: CartViewModel) {
+fun UiShowCartCard(
+    product: Product,
+    viewModel: CartViewModel,
+    navHostController: NavHostController
+) {
     Card(modifier = Modifier
         .fillMaxWidth()
         .padding(vertical = 8.dp, horizontal = 4.dp)
@@ -27,6 +33,9 @@ fun UiShowCartCard(product: Product, viewModel: CartViewModel) {
             Button(onClick = { viewModel.onEvent(CartEvent.Decrease(product)) }) {
                 Text("-")
             }
+        }
+        Button(onClick = { navHostController.navigate(Routes.PRODUCT+"/TEST_VALUE") }) {
+            Text("Open product card...")
         }
     }
 }

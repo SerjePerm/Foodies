@@ -41,8 +41,8 @@ class CatalogViewModel @Inject constructor(
 
     fun onEvent(event: CatalogEvent) {
         when (event) {
-            is CatalogEvent.AddToCart -> cart.add(event.product)
-            is CatalogEvent.DelFromCart -> cart.del(event.product)
+            is CatalogEvent.CartIncrease -> cart.increase(event.product)
+            is CatalogEvent.CartDecrease -> cart.decrease(event.product)
         }
     }
 

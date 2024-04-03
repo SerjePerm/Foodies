@@ -21,7 +21,7 @@ fun NavGraph(navHostController: NavHostController) {
         composable(Routes.CATALOG) {
             CatalogScreen(navHostController = navHostController, viewModel = hiltViewModel() )
         }
-        composable(Routes.PRODUCT) {
+        composable(Routes.PRODUCT +"/{product}") {
             ProductScreen(navHostController = navHostController, viewModel = hiltViewModel() )
         }
         composable(Routes.CART) {

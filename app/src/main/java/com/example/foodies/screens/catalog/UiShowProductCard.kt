@@ -21,10 +21,10 @@ fun UiShowProductCard(product: Product, viewModel: CatalogViewModel) {
         Text(text = "name: ${product.name}")
         Text(text = "count: ${product.count}")
         Row {
-            Button(onClick = { viewModel.onEvent(CatalogEvent.AddToCart(product)) }) {
+            Button(onClick = { viewModel.onEvent(CatalogEvent.CartIncrease(product)) }) {
                 Text("+")
             }
-            Button(onClick = { viewModel.onEvent(CatalogEvent.DelFromCart(product)) }) {
+            Button(onClick = { viewModel.onEvent(CatalogEvent.CartDecrease(product)) }) {
                 Text("-")
             }
         }

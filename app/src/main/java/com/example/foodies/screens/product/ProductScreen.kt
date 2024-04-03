@@ -9,6 +9,5 @@ import androidx.navigation.NavHostController
 fun ProductScreen(navHostController: NavHostController, viewModel: ProductViewModel) {
     Column {
         Text("ProductScreen")
-        Text("from viewmodel ${viewModel.temp}")
     }
 }
