@@ -10,6 +10,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,6 +44,17 @@ class CatalogViewModel @Inject constructor(
         when (event) {
             is CatalogEvent.CartIncrease -> cart.increase(event.product)
             is CatalogEvent.CartDecrease -> cart.decrease(event.product)
+            is CatalogEvent.SelectCategory -> selectCategory(event.categoryId)
+        }
+    }
+
+    private fun selectCategory(id: Int) {
+        println("selecting id: $id")
+        if (_state.value == CatalogState.Content()) {
+            _state.update { (_state.value as CatalogState.Content).copy(selectedCategory = id) }
+            //val current = (_state.value as CatalogState.Content).selectedCategory
+            //if (current == id) _state.update { (_state.value as CatalogState.Content).copy(selectedCategory = -1) }
+            //else _state.update { (_state.value as CatalogState.Content).copy(selectedCategory = id) }
         }
     }
 

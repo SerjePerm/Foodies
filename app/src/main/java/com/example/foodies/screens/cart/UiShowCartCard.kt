@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.foodies.data.models.Product
 import com.example.foodies.utils.Routes
+import com.example.foodies.utils.productToJson
 
 @Composable
 fun UiShowCartCard(
@@ -34,7 +35,8 @@ fun UiShowCartCard(
                 Text("-")
             }
         }
-        Button(onClick = { navHostController.navigate(Routes.PRODUCT+"/TEST_VALUE") }) {
+        val productStr = productToJson(product)
+        Button(onClick = { navHostController.navigate(Routes.PRODUCT+"/"+productStr) }) {
             Text("Open product card...")
         }
     }
