@@ -64,6 +64,8 @@ dependencies {
     implementation(libs.converter.gson)
     //GSON
     implementation(libs.gson)
+    //Landscapist
+    implementation("com.github.skydoves:landscapist-glide:2.3.2")
     //Jetpack Compose navigation
     implementation(libs.androidx.navigation.compose)
     //Standard libs

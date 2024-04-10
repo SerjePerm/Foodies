@@ -2,7 +2,12 @@
     <string name="app_name">Foodies</string>
     <string name="loading_screen_text">Идёт загрузка,\nпожалуйста, подождите…</string>
     <string name="error_screen_text">Произошла ошибка</string>
+    <string name="loading">Loading...</string>
     <!-- Catalog screen -->
+    <string name="empty_products">Таких блюд нет :(\nПопробуйте изменить фильтры</string>
     <!-- Cart screen -->
+    <string name="cart">Корзина</string>
+    <string name="order_for_summ">"Заказать на "</string>
+    <string name="empty_cart">Пусто, выберите блюда\nв каталоге</string>
     <!-- Product screen -->
 </resources>
