@@ -3,6 +3,7 @@ package com.example.foodies.screens.catalog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.foodies.data.cart.Cart
+import com.example.foodies.data.models.Product
 import com.example.foodies.data.models.mapProductDtoToProduct
 import com.example.foodies.data.network.NetworkClient
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +23,7 @@ class CatalogViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(CatalogState.Loading as CatalogState)
     val state: StateFlow<CatalogState> = _state.asStateFlow()
+    val order: StateFlow<List<Product>> get() = cart.order
 
     init {
         viewModelScope.launch {

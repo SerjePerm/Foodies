@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -28,7 +27,7 @@ import androidx.navigation.NavHostController
 import com.example.foodies.R
 import com.example.foodies.utils.ErrorScreen
 import com.example.foodies.utils.LoadingScreen
-import com.example.foodies.utils.components.ShowButton
+import com.example.foodies.utils.ui_components.ShowBigButton
 
 @Composable
 fun CartScreen(navHostController: NavHostController, viewModel: CartViewModel) {
@@ -97,7 +96,7 @@ private fun ShowTopBar() {
             modifier = Modifier
                 .clickable { onBackPressedDispatcher!!.onBackPressed() }
                 .size(24.dp),
-            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+            imageVector = Icons.Default.ArrowBack,
             contentDescription = null
         )
         Text(
@@ -111,7 +110,7 @@ private fun ShowTopBar() {
 
 @Composable
 private fun ShowBottomBar() {
-    ShowButton(
+    ShowBigButton(
         title = stringResource(R.string.order_for_summ),
         image = null
     ) {

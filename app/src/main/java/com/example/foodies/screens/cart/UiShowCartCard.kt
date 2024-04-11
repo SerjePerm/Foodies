@@ -16,8 +16,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.foodies.R
 import com.example.foodies.data.models.Product
+import com.example.foodies.screens.catalog.CatalogEvent
 import com.example.foodies.utils.Routes
 import com.example.foodies.utils.productToJson
+import com.example.foodies.utils.ui_components.CountBtnStyle
+import com.example.foodies.utils.ui_components.CountBtnType
+import com.example.foodies.utils.ui_components.ShowCountButton
 
 @Composable
 fun UiShowCartCard(
@@ -39,11 +43,14 @@ fun UiShowCartCard(
         Text(text = product.name)
         Text(text = "count: ${product.count}")
         Row {
-            Button(onClick = { viewModel.onEvent(CartEvent.Increase(product)) }) {
-                Text("+")
+            ShowCountButton(type = CountBtnType.MINUS, style = CountBtnStyle.CART) {
+                viewModel.onEvent(CartEvent.Decrease(product))
             }
-            Button(onClick = { viewModel.onEvent(CartEvent.Decrease(product)) }) {
-                Text("-")
+            Text(
+                text = "${product.count}"
+            )
+            ShowCountButton(type = CountBtnType.PLUS, style = CountBtnStyle.CART) {
+                viewModel.onEvent(CartEvent.Increase(product))
             }
         }
     }
