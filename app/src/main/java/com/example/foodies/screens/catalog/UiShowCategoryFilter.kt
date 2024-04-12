@@ -1,4 +1,4 @@
-package com.example.foodies.screens.cart
+package com.example.foodies.screens.catalog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,6 +25,7 @@ fun UiShowCategoryFilter(
     if (category.id == selected) {
         Box(modifier = Modifier
             .clickable { viewmodel.onEvent(CatalogEvent.SelectCategory(category.id)) }
+            //change orange -> clrO
             .background(Color(0xFFF15412), RectangleShape)
             .padding(horizontal = 16.dp)
         ) {

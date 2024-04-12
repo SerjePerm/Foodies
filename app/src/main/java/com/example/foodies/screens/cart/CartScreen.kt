@@ -25,9 +25,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.foodies.R
+import com.example.foodies.ui.theme.clrOrange
 import com.example.foodies.utils.ErrorScreen
 import com.example.foodies.utils.LoadingScreen
-import com.example.foodies.utils.ui_components.ShowBigButton
+import com.example.foodies.utils.ShowBigButton
+import com.example.foodies.utils.realToString
 
 @Composable
 fun CartScreen(navHostController: NavHostController, viewModel: CartViewModel) {
@@ -50,9 +52,10 @@ private fun ShowContent(
     navHostController: NavHostController,
 ) {
     val data = viewModel.order.collectAsState()
+    val sum = viewModel.sum.collectAsState()
     Scaffold(
         topBar = { ShowTopBar() },
-        bottomBar = { ShowBottomBar() }
+        bottomBar = { ShowBottomBar(sum.value) }
     )
     { paddingValues ->
         Column(
@@ -97,7 +100,8 @@ private fun ShowTopBar() {
                 .clickable { onBackPressedDispatcher!!.onBackPressed() }
                 .size(24.dp),
             imageVector = Icons.Default.ArrowBack,
-            contentDescription = null
+            contentDescription = null,
+            tint = clrOrange
         )
         Text(
             modifier = Modifier.padding(start = 12.dp),
@@ -109,9 +113,9 @@ private fun ShowTopBar() {
 }
 
 @Composable
-private fun ShowBottomBar() {
+private fun ShowBottomBar(sum: Int) {
     ShowBigButton(
-        title = stringResource(R.string.order_for_summ),
+        title = stringResource(R.string.order_for_summ) + realToString(sum),
         image = null
     ) {
         println("test")

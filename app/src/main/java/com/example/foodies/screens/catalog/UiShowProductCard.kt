@@ -2,25 +2,25 @@ package com.example.foodies.screens.catalog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -32,11 +32,11 @@ import com.example.foodies.ui.theme.clrGray
 import com.example.foodies.ui.theme.clrGrayBg
 import com.example.foodies.utils.Routes
 import com.example.foodies.utils.productToJson
-import com.example.foodies.utils.ui_components.CountBtnStyle
-import com.example.foodies.utils.ui_components.CountBtnType
-import com.example.foodies.utils.ui_components.ShowBigButton
-import com.example.foodies.utils.ui_components.ShowCountButton
-import com.example.foodies.utils.ui_components.ShowPriceButton
+import com.example.foodies.utils.CountBtnStyle
+import com.example.foodies.utils.CountBtnType
+import com.example.foodies.utils.ShowCountButton
+import com.example.foodies.utils.ShowPriceButton
+import com.example.foodies.utils.realToString
 
 @Composable
 fun UiShowProductCard(
@@ -95,13 +95,25 @@ fun UiShowProductCard(
         )
         //Buttons
         if (count > 0) {
-            Row {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 6.dp, vertical = 6.dp)
+            ) {
                 ShowCountButton(type = CountBtnType.MINUS, style = CountBtnStyle.CATALOG) {
                     viewModel.onEvent(CatalogEvent.CartDecrease(product))
                 }
-                Text(
-                    text = count.toString()
-                )
+                Box(
+                    modifier = Modifier.height(40.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = count.toString(),
+                        fontWeight = FontWeight.W500,
+                        fontSize = 16.sp,
+                    )
+                }
                 ShowCountButton(type = CountBtnType.PLUS, style = CountBtnStyle.CATALOG) {
                     viewModel.onEvent(CatalogEvent.CartIncrease(product))
                 }
@@ -109,8 +121,8 @@ fun UiShowProductCard(
         }
         else {
             ShowPriceButton(
-                price = product.priceCurrent.toString(),
-                priceOld = product.priceOld
+                price = realToString(product.priceCurrent),
+                priceOld = if (product.priceOld != null) realToString(product.priceOld) else null,
             ) {
                 viewModel.onEvent(CatalogEvent.CartIncrease(product))
             }

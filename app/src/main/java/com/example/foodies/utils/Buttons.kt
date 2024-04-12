@@ -1,4 +1,4 @@
-package com.example.foodies.utils.ui_components
+package com.example.foodies.utils
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

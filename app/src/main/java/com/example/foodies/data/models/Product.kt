@@ -7,13 +7,13 @@ data class Product(
     val description: String,
     val image: String,
     val priceCurrent: Int,
-    val priceOld: String?,
+    val priceOld: Int?,
     val measure: Int,
     val measureUnit: String,
-    val energyPer100grams: Double,
-    val proteinsPer100grams: Double,
-    val fatsPer100Grams: Double,
-    val carbohydratesPer100Grams: Double,
+    val energyPer100grams: Float,
+    val proteinsPer100grams: Float,
+    val fatsPer100Grams: Float,
+    val carbohydratesPer100Grams: Float,
     val tagIds: List<String>,
     val count: Int
 )

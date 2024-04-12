@@ -18,6 +18,7 @@ class CartViewModel @Inject constructor(private val cart: Cart) : ViewModel() {
     private val _state = MutableStateFlow(CartState.Loading as CartState)
     val state: StateFlow<CartState> = _state.asStateFlow()
     val order: StateFlow<List<Product>> get() = cart.order
+    val sum: StateFlow<Int> get() = cart.sum
 
     init {
         viewModelScope.launch {

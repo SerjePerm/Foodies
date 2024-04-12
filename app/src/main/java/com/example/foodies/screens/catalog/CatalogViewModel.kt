@@ -24,6 +24,7 @@ class CatalogViewModel @Inject constructor(
     private val _state = MutableStateFlow(CatalogState.Loading as CatalogState)
     val state: StateFlow<CatalogState> = _state.asStateFlow()
     val order: StateFlow<List<Product>> get() = cart.order
+    val sum: StateFlow<Int> get() = cart.sum
 
     init {
         viewModelScope.launch {

@@ -35,12 +35,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.foodies.R
 import com.example.foodies.data.models.Product
-import com.example.foodies.screens.cart.UiShowCategoryFilter
 import com.example.foodies.ui.theme.clrOrange
 import com.example.foodies.utils.ErrorScreen
 import com.example.foodies.utils.LoadingScreen
 import com.example.foodies.utils.Routes
-import com.example.foodies.utils.ui_components.ShowBigButton
+import com.example.foodies.utils.ShowBigButton
+import com.example.foodies.utils.realToString
 
 @Composable
 fun CatalogScreen(navHostController: NavHostController, viewModel: CatalogViewModel) {
@@ -63,9 +63,10 @@ private fun ShowContent(
     navHostController: NavHostController
 ) {
     val order = viewModel.order.collectAsState()
+    val sum = viewModel.sum.collectAsState()
     Scaffold(
         topBar = { ShowTopBar() },
-        bottomBar = { ShowBottomBar(navHostController) }
+        bottomBar = { ShowBottomBar(sum = sum.value, navHostController = navHostController) }
     )
     { paddingValues ->
         Column(
@@ -158,9 +159,9 @@ private fun ShowTopBar() {
 }
 
 @Composable
-private fun ShowBottomBar(navHostController: NavHostController) {
+private fun ShowBottomBar(sum: Int, navHostController: NavHostController) {
     ShowBigButton(
-        title = stringResource(R.string.order_for_summ),
+        title = stringResource(R.string.order_for_summ) + realToString(sum),
         image = Icons.Default.ShoppingCart
     ) {
         navHostController.navigate(Routes.CART)
