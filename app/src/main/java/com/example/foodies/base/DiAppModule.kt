@@ -1,7 +1,7 @@
 package com.example.foodies.base
 
-import com.example.foodies.data.cart.CartImpl
 import com.example.foodies.data.cart.Cart
+import com.example.foodies.data.cart.CartImpl
 import com.example.foodies.data.network.NetworkClient
 import com.example.foodies.data.network.NetworkClientImpl
 import dagger.Module

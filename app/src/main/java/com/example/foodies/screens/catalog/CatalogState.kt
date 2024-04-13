@@ -11,6 +11,7 @@ sealed class CatalogState {
         var categories: List<Category> = emptyList(),
         var tags: List<Tag> = emptyList(),
         var products: List<Product> = emptyList(),
+        var selectedProducts: List<Product> = emptyList(),
         var selectedCategory: Int = -1
     ) : CatalogState()
 }

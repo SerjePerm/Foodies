@@ -1,9 +1,11 @@
 package com.example.foodies.utils
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -32,10 +34,11 @@ fun ShowBigButton(title: String, image: ImageVector?, onclick: () -> Unit) {
             .fillMaxWidth()
             .height(48.dp)
     ) {
-        if (image!=null) {
+        if (image != null) {
             Icon(
                 imageVector = image,
-                contentDescription = null)
+                contentDescription = null
+            )
         }
         Text(
             text = title,
@@ -56,19 +59,19 @@ fun ShowPriceButton(price: String, priceOld: String?, onclick: () -> Unit) {
             .fillMaxWidth()
             .height(48.dp)
     ) {
-        Row{
+        Row {
             Text(
                 text = price,
                 fontWeight = FontWeight.W500,
                 fontSize = 16.sp,
                 color = Color.Black
             )
-            if (priceOld!=null) {
+            if (priceOld != null) {
                 Text(
                     modifier = Modifier.padding(start = 8.dp),
                     text = priceOld,
                     fontWeight = FontWeight.W400,
-                    fontSize = 14.sp,
+                    fontSize = 12.sp,
                     textDecoration = TextDecoration.LineThrough,
                     color = clrGray
                 )
@@ -82,6 +85,7 @@ fun ShowCountButton(type: CountBtnType, style: CountBtnStyle, onclick: () -> Uni
     Button(
         onClick = onclick,
         shape = RoundedCornerShape(8.dp),
+        contentPadding = PaddingValues(horizontal = 0.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = if (style == CountBtnStyle.CATALOG) Color.White else clrGrayBg,
             contentColor = if (style == CountBtnStyle.CATALOG) clrOrange else clrOrange
@@ -89,6 +93,7 @@ fun ShowCountButton(type: CountBtnType, style: CountBtnStyle, onclick: () -> Uni
         modifier = Modifier
             .padding(horizontal = 2.dp, vertical = 2.dp)
             .height(40.dp)
+            .width(40.dp)
     ) {
         Text(
             text = if (type == CountBtnType.PLUS) "+" else "-",

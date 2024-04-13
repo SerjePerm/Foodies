@@ -5,9 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,12 +29,12 @@ import com.example.foodies.R
 import com.example.foodies.data.models.Product
 import com.example.foodies.ui.theme.clrGray
 import com.example.foodies.ui.theme.clrGrayBg
-import com.example.foodies.utils.Routes
-import com.example.foodies.utils.productToJson
 import com.example.foodies.utils.CountBtnStyle
 import com.example.foodies.utils.CountBtnType
+import com.example.foodies.utils.Routes
 import com.example.foodies.utils.ShowCountButton
 import com.example.foodies.utils.ShowPriceButton
+import com.example.foodies.utils.productToJson
 import com.example.foodies.utils.realToString
 
 @Composable
@@ -63,43 +62,48 @@ fun UiShowProductCard(
         )
          */
         // заглушка вместо GlideImage
-        Box{
-            Icon(
-                painter = painterResource(id = R.drawable.percent),
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(start = 6.dp, top = 6.dp)
-                    .size(26.dp)
-                    .background(Color.White, CircleShape)
-            )
+        Box {
+            if (product.priceOld != null) {
+                Icon(
+                    painter = painterResource(id = R.drawable.percent),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(start = 6.dp, top = 6.dp)
+                        .size(26.dp)
+                        .background(Color.White, CircleShape)
+                )
+            }
             Image(
                 painter = painterResource(R.drawable.placeholder),
                 contentDescription = null
             )
         }
-
-        //Text fields
-        Text(
-            modifier = Modifier.padding(start = 6.dp),
-            text = product.name,
-            fontWeight = FontWeight.W400,
-            fontSize = 14.sp,
-            color = Color.Black
-        )
-        Text(
-            modifier = Modifier.padding(start = 6.dp),
-            text = "${product.measure} ${product.measureUnit}",
-            fontWeight = FontWeight.W500,
-            fontSize = 14.sp,
-            color = clrGray,
-        )
+        //Text fields: title and measure
+        Column(
+            modifier = Modifier.height(70.dp)
+        ) {
+            Text(
+                modifier = Modifier.padding(start = 6.dp),
+                text = product.name,
+                fontWeight = FontWeight.W400,
+                fontSize = 14.sp,
+                color = Color.Black
+            )
+            Text(
+                modifier = Modifier.padding(start = 6.dp),
+                text = "${product.measure} ${product.measureUnit}",
+                fontWeight = FontWeight.W500,
+                fontSize = 14.sp,
+                color = clrGray,
+            )
+        }
         //Buttons
         if (count > 0) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 6.dp, vertical = 6.dp)
+                    .padding(horizontal = 12.dp, vertical = 14.dp)
             ) {
                 ShowCountButton(type = CountBtnType.MINUS, style = CountBtnStyle.CATALOG) {
                     viewModel.onEvent(CatalogEvent.CartDecrease(product))
@@ -118,8 +122,7 @@ fun UiShowProductCard(
                     viewModel.onEvent(CatalogEvent.CartIncrease(product))
                 }
             }
-        }
-        else {
+        } else {
             ShowPriceButton(
                 price = realToString(product.priceCurrent),
                 priceOld = if (product.priceOld != null) realToString(product.priceOld) else null,

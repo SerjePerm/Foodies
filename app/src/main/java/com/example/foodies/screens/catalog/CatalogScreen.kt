@@ -105,7 +105,7 @@ private fun ShowContent(
             }
             //Products grid
             LazyVerticalGrid(columns = GridCells.Adaptive(180.dp)) {
-                items(state.products) {product ->
+                items(state.products) { product ->
                     val count = getCount(product, order)
                     UiShowProductCard(
                         product = product,

@@ -27,8 +27,8 @@ class CartViewModel @Inject constructor(private val cart: Cart) : ViewModel() {
         }
     }
 
-    fun onEvent(event: CartEvent){
-        when(event) {
+    fun onEvent(event: CartEvent) {
+        when (event) {
             is CartEvent.Increase -> cart.increase(event.product)
             is CartEvent.Decrease -> cart.decrease(event.product)
         }

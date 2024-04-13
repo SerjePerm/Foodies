@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import com.example.foodies.R
 
 @Composable
@@ -15,6 +16,9 @@ fun LoadingScreen() {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = stringResource(R.string.loading_screen_text))
+        Text(
+            text = stringResource(R.string.loading_screen_text),
+            textAlign = TextAlign.Center
+        )
     }
 }

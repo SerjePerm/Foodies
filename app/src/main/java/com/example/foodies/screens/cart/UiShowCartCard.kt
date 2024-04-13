@@ -1,14 +1,11 @@
 package com.example.foodies.screens.cart
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -91,7 +87,7 @@ private fun ShowProductImage(product: Product) {
      */
     Image(
         painter = painterResource(R.drawable.placeholder),
-        contentDescription = null,
+        contentDescription = product.name,
         modifier = Modifier.size(96.dp)
     )
 }
@@ -103,8 +99,10 @@ private fun ShowCountBlock(product: Product, viewModel: CartViewModel) {
             viewModel.onEvent(CartEvent.Decrease(product))
         }
         Box(
-            modifier = Modifier.height(40.dp),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .height(40.dp)
+                .padding(horizontal = 8.dp)
         ) {
             Text(
                 text = product.count.toString(),

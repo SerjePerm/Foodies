@@ -14,15 +14,15 @@ class CartImpl : Cart {
 
     override fun increase(product: Product) {
         val count = getCount(product)
-        if (count==-1) addToOrder(product)
-        else updateCount(product.id, count+1)
+        if (count == -1) addToOrder(product)
+        else updateCount(product.id, count + 1)
         calculateSum()
     }
 
     override fun decrease(product: Product) {
         val count = getCount(product)
-        if (count==1) deleteFromOrder(product.id)
-        else updateCount(product.id, count-1)
+        if (count == 1) deleteFromOrder(product.id)
+        else updateCount(product.id, count - 1)
         calculateSum()
     }
 
@@ -42,8 +42,11 @@ class CartImpl : Cart {
 
     private fun updateCount(id: Int, newCount: Int) {
         _order.value = _order.value.map {
-            if (it.id == id) { it.copy(count = newCount) }
-            else { it }
+            if (it.id == id) {
+                it.copy(count = newCount)
+            } else {
+                it
+            }
         }
     }
 

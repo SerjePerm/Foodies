@@ -2,7 +2,6 @@ package com.example.foodies.utils
 
 import com.example.foodies.data.models.Product
 import com.google.gson.Gson
-import java.lang.Exception
 
 fun productToJson(product: Product): String {
     return Gson().toJson(product)
@@ -26,7 +25,7 @@ fun jsonToProduct(productStr: String): Product {
             proteinsPer100grams = 0.0f,
             fatsPer100Grams = 0.0f,
             carbohydratesPer100Grams = 0.0f,
-            tagIds = listOf(""),
+            tagIds = listOf(),
             count = 0
         )
     }

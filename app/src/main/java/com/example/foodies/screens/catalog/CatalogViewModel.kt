@@ -52,12 +52,22 @@ class CatalogViewModel @Inject constructor(
     }
 
     private fun selectCategory(id: Int) {
-        println("selecting id: $id")
-        if (_state.value == CatalogState.Content()) {
-            _state.update { (_state.value as CatalogState.Content).copy(selectedCategory = id) }
-            //val current = (_state.value as CatalogState.Content).selectedCategory
-            //if (current == id) _state.update { (_state.value as CatalogState.Content).copy(selectedCategory = -1) }
-            //else _state.update { (_state.value as CatalogState.Content).copy(selectedCategory = id) }
+        if (_state.value is CatalogState.Content) {
+            val current = (_state.value as CatalogState.Content).selectedCategory
+            if (current == id) _state.update {
+                (_state.value as CatalogState.Content).copy(
+                    selectedCategory = -1
+                )
+            }
+            else _state.update { (_state.value as CatalogState.Content).copy(selectedCategory = id) }
+            if (id > 0) {
+                val result =
+                    (_state.value as CatalogState.Content).products.filter { it.tagIds.contains(4) }
+                _state.update { (state.value as CatalogState.Content).copy(selectedProducts = result) }
+            } else {
+                val result = (_state.value as CatalogState.Content).products
+                _state.update { (state.value as CatalogState.Content).copy(selectedProducts = result) }
+            }
         }
     }
 

@@ -16,7 +16,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -34,10 +34,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.example.foodies.R
 import com.example.foodies.data.models.Product
-import com.example.foodies.screens.catalog.CatalogEvent
 import com.example.foodies.ui.theme.clrGray
 import com.example.foodies.utils.CountBtnStyle
 import com.example.foodies.utils.CountBtnType
@@ -45,11 +43,10 @@ import com.example.foodies.utils.ErrorScreen
 import com.example.foodies.utils.LoadingScreen
 import com.example.foodies.utils.ShowBigButton
 import com.example.foodies.utils.ShowCountButton
-import com.example.foodies.utils.ShowPriceButton
 import com.example.foodies.utils.realToString
 
 @Composable
-fun ProductScreen(navHostController: NavHostController, viewModel: ProductViewModel) {
+fun ProductScreen(viewModel: ProductViewModel) {
     val state by viewModel.state.collectAsState()
     when (state) {
         ProductState.Loading -> LoadingScreen()
@@ -57,7 +54,6 @@ fun ProductScreen(navHostController: NavHostController, viewModel: ProductViewMo
         is ProductState.Content -> ShowContent(
             state = state as ProductState.Content,
             viewModel = viewModel,
-            navHostController = navHostController
         )
     }
 }
@@ -65,8 +61,7 @@ fun ProductScreen(navHostController: NavHostController, viewModel: ProductViewMo
 @Composable
 private fun ShowContent(
     state: ProductState.Content,
-    viewModel: ProductViewModel,
-    navHostController: NavHostController
+    viewModel: ProductViewModel
 ) {
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val order = viewModel.order.collectAsState()
@@ -85,7 +80,7 @@ private fun ShowContent(
         ) {
             Box {
                 Icon(
-                    imageVector = Icons.Default.ArrowBack,
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = null,
                     modifier = Modifier
                         .clickable { onBackPressedDispatcher!!.onBackPressed() }
@@ -101,6 +96,7 @@ private fun ShowContent(
                 text = product.name,
                 fontWeight = FontWeight.W400,
                 fontSize = 34.sp,
+                lineHeight = 38.sp,
                 color = Color.Black
             )
             //Description
@@ -184,7 +180,7 @@ private fun ShowProductImage(product: Product) {
      */
     Image(
         painter = painterResource(R.drawable.placeholder),
-        contentDescription = null
+        contentDescription = product.name
     )
 }
 
@@ -214,8 +210,7 @@ private fun ShowPriceBlock(count: Int, product: Product, viewModel: ProductViewM
                 viewModel.onEvent(ProductEvent.CartIncrease(product))
             }
         }
-    }
-    else {
+    } else {
         ShowBigButton(
             title = stringResource(R.string.add_to_cart) + realToString(product.priceCurrent),
             image = null
